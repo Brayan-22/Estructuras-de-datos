@@ -259,5 +259,26 @@ public class arbolBin<T> {
         }
         System.out.println();
     }
-
+    
+    /*Funciones utiles */
+    /* Calcular la "altura" de un árbol 
+    -- el número de nodos a lo largo del camino más largo desde el nodo raíz hasta el nodo hoja más lejano.
+    */
+    private int altura(nodos.nodoArbolBin<T> actual)
+    {
+        if (actual == null)
+            return 0;
+        else {
+            /* compute the height of each subtree */
+            int izqAltura = altura(actual.izq);
+            int derAltura = altura(actual.der);
+ 
+            /* use the larger one */
+            return (izqAltura > derAltura)?(izqAltura + 1):(derAltura + 1);
+        }
+    }
+    
+    public int altura(){
+        return altura(this.raiz);
+    }
 }

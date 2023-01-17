@@ -76,6 +76,7 @@ public class Launcher{
         System.out.println("Recorrido por niveles: ");tree.recorridoNiveles();
         System.out.println("56 "+(tree.busqueda(56)?"Encontrado":"No encontrado"));
         System.out.println("300 "+(tree.busqueda(300)?"Encontrado":"No encontrado"));
+        System.out.println("Altura: "+tree.altura());
         //CASO 1 ELIMINACION: El nodo a eliminar no tiene hijos
         tree.eliminar(175);
         //CASO 2 ELIMINACION: El nodo a eliminar tiene un solo hijo
@@ -117,6 +118,7 @@ public class Launcher{
                                  22  56     100      170  200
          */
         System.out.println("Recorrido inOrden: ");tree.inOrden();
+        System.out.println("Altura: "+tree.altura());
         System.out.println(tree.getInfo(200));
     }
     public static void main(String[] args) {
