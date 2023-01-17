@@ -269,15 +269,15 @@ public class arbolBin<T> {
         if (actual == null)
             return 0;
         else {
-            /* compute the height of each subtree */
+            /* calcular la altura de cada subarbol*/
             int izqAltura = altura(actual.izq);
             int derAltura = altura(actual.der);
  
-            /* use the larger one */
+            /* retornar el mas "alto" */
             return (izqAltura > derAltura)?(izqAltura + 1):(derAltura + 1);
         }
     }
-    
+
     public int altura(){
         return altura(this.raiz);
     }
