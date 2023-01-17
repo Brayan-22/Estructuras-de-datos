@@ -1,2 +1,2 @@
 # Estructuras-de-datos
-Implementaciones en distintos lenguajes de estructuras de datos.
+Implementaciones de estructuras de datos en distintos lenguajes.
