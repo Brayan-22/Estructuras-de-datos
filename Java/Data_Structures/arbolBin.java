@@ -264,11 +264,10 @@ public class arbolBin<T> {
     /* Calcular la "altura" de un árbol 
     -- el número de nodos a lo largo del camino más largo desde el nodo raíz hasta el nodo hoja más lejano.
     */
-    private int altura(nodos.nodoArbolBin<T> actual)
-    {
-        if (actual == null)
+    private int altura(nodos.nodoArbolBin<T> actual){
+        if (actual == null){
             return 0;
-        else {
+        }else {
             /* calcular la altura de cada subarbol*/
             int izqAltura = altura(actual.izq);
             int derAltura = altura(actual.der);
@@ -281,4 +280,46 @@ public class arbolBin<T> {
     public int altura(){
         return altura(this.raiz);
     }
+
+    /*
+     * Calcular la anchura maxima del arbol binario (sin incluir nodos nulos)
+     * -- el numero de nodos  que tiene el arbol a lo ancho, esto sin incluir los nodos nulos
+     * Ejemplo: 
+     *
+                                            120                         -->anchura: 1
+                                        /         \
+                                       87          140                  -->anchura: 2
+                                    /    \        /     \            
+                                   43     99      130     180           -->anchura: 4
+                                  /  \   /  \    /    \    /    \
+                                 22  56 95 null null   135 170   200    -->anchura: 6
+        anchura maxima : 6
+     */
+    public int getAnchuraMaxima(){
+        int maxAnch = 0;
+        int anchura;
+        int altura = altura(this.raiz);
+        /*  Obteniendo el ancho de cada nivel 
+            y comparar el ancho con el ancho máximo hasta ahora
+        */
+        for (int i = 1; i <= altura; i++) {
+            anchura = getAnchura(this.raiz, i);
+            if (anchura > maxAnch)
+                maxAnch = anchura;
+        }
+        return maxAnch;
+    }
+    /* Obtener el ancho de un nivel dado */
+    private int getAnchura(nodos.nodoArbolBin<T> actual, int nivel){
+        if (actual == null){
+            return 0;
+        }
+        if (nivel == 1){
+            return 1;
+        }else if (nivel > 1){
+            return getAnchura(actual.izq, nivel - 1) + getAnchura(actual.der, nivel - 1);
+        }
+        return 0;
+    }
+
 }

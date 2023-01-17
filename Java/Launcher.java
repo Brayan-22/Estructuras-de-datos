@@ -119,6 +119,7 @@ public class Launcher{
          */
         System.out.println("Recorrido inOrden: ");tree.inOrden();
         System.out.println("Altura: "+tree.altura());
+        System.out.println("Anchura maxima: " + tree.getAnchuraMaxima());
         System.out.println(tree.getInfo(200));
     }
     public static void main(String[] args) {
