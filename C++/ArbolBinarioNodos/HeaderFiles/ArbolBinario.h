@@ -6,9 +6,13 @@
 #include "Pila.h"
 
 class arbolBin{
+    //private
     nodoABIN *raiz;
     nodoABIN *buscar(int info);
     nodoABIN *buscarPadre(nodoABIN *hijo);
+    int altura(nodoABIN *actual);
+    void insertar(nodoABIN *actual,int info);
+    int getAnchura(nodoABIN *actual,int nivel);
     public:
     arbolBin(){
         raiz=NULL;        
@@ -21,42 +25,48 @@ class arbolBin{
 	void postorden();
     void preorden();
 	void niveles();
+    bool isEmpty();
+    int altura();
+    int getAnchuraMaxima();
 };
 
-bool arbolBin:: insertar(int info){
-    nodoABIN *aux = new nodoABIN;
-    aux->dato=info;
-    aux->der=NULL;
-    aux->izq=NULL;
-    if(this->raiz==NULL){
-        raiz=aux;
-        std::cout<<info<<" insertado"<<std::endl;
-        return true;
-    }
-    bool control=true;
-    nodoABIN *temp =raiz;
-    while (control)
+void arbolBin::insertar(nodoABIN *actual,int info){
+    if (info<actual->dato)
     {
-        if(info>=temp->dato){
-            if(temp->der!=NULL){
-                temp=temp->der;
-            }else{
-                temp->der=aux;
-                std::cout<<info<<" insertado"<<std::endl;
-                control=false;              
-            }
+        if (actual->izq==NULL)
+        {
+            nodoABIN *nuevo=new nodoABIN;
+            nuevo->dato=info;nuevo->der=NULL;nuevo->izq=NULL;
+            actual->izq=nuevo;
+        }else{
+            insertar(actual->izq,info);
         }
-        if(info<temp->dato){
-            if(temp->izq!=NULL){
-                temp=temp->izq;
-            }else{
-                temp->izq=aux;
-                std::cout<<info<<" insertado"<<std::endl;
-                control=false;
-            }
+    }else{
+        if (actual->der==NULL)
+        {
+            nodoABIN *nuevo=new nodoABIN;
+            nuevo->dato=info;nuevo->der=NULL;nuevo->izq=NULL;
+            actual->der=nuevo;
+        }else{
+            insertar(actual->der,info);
         }
+    }
+}
+
+bool arbolBin:: insertar(int info){
+    if (this->raiz==NULL)
+    {
+        nodoABIN *nuevo=new nodoABIN;
+        nuevo->dato=info;nuevo->der=NULL;nuevo->izq=NULL;
+        this->raiz=nuevo;
+    }else{
+        insertar(this->raiz,info);
     }
     return true;
+}
+
+bool arbolBin::isEmpty(){
+    return ((this->raiz==NULL)?true:false);
 }
 
 bool arbolBin::busqueda(int info){
@@ -137,7 +147,7 @@ bool arbolBin::eliminar(int info){
     {
         if (aux->der==NULL && aux->izq==NULL)
         {
-            aux==NULL;
+            aux=NULL;
             return true;
         }
         if (aux->der==NULL && aux->izq!=NULL)
@@ -242,6 +252,7 @@ bool arbolBin::eliminar(int info){
             }
         }
     }
+    return false;
 }
 
 nodoABIN *arbolBin::buscarPadre(nodoABIN *hijo){
@@ -405,4 +416,54 @@ void arbolBin::niveles(){
     } 
     std::cout<<std::endl;
 }
+
+/*Funciones utiles */
+/* Calcular la "altura" de un árbol 
+-- el número de nodos a lo largo del camino más largo desde el nodo raíz hasta el nodo hoja más lejano.
+*/
+int arbolBin::altura(nodoABIN *actual){
+    if (actual==NULL)
+    {
+        return 0;
+    }else{
+        /* calcular la altura de cada subarbol*/
+        int izqAltura = altura(actual->izq);
+        int derAltura = altura(actual->der);
+        /* retornar el mas "alto" */
+        return (izqAltura > derAltura)?(izqAltura + 1):(derAltura + 1);
+    }
+}
+
+int arbolBin::altura(){
+    return altura(this->raiz);
+}
+
+/* Obtener el ancho de un nivel dado */
+int arbolBin::getAnchura(nodoABIN *actual,int nivel){
+        if (actual == NULL){
+            return 0;
+        }
+        if (nivel == 1){
+            return 1;
+        }else if (nivel > 1){
+            return getAnchura(actual->izq, nivel - 1) + getAnchura(actual->der, nivel - 1);
+        }
+        return 0;
+}
+
+int arbolBin::getAnchuraMaxima(){
+            int maxAnch = 0;
+        int anchura;
+        int altura = this->altura(this->raiz);
+        /*  Obteniendo el ancho de cada nivel 
+            y comparar el ancho con el ancho máximo hasta ahora
+        */
+        for (int i = 1; i <= altura; i++) {
+            anchura = getAnchura(this->raiz, i);
+            if (anchura > maxAnch)
+                maxAnch = anchura;
+        }
+        return maxAnch;
+}
+
 #endif

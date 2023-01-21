@@ -35,6 +35,8 @@ int main(int argc, char const *argv[])
     arbol->busqueda(120);
     arbol->busqueda(175);
     arbol->busqueda(500);
+    std::cout<<"Anchura maxima: "<<arbol->getAnchuraMaxima()<<std::endl;
+    std::cout<<"Altura del arbol: "<<arbol->altura()<<std::endl;
     std::cout<<"ELIMINACION:"<<std::endl;
     arbol->eliminar(95);//PRIMER CASO
     arbol->inorden();
@@ -43,5 +45,6 @@ int main(int argc, char const *argv[])
     arbol->eliminar(87);//TERCER CASO
     arbol->inorden();
     arbol->eliminar(500);//CASO NODO NO EXISTE
+    system("pause");
     return 0;
 }
