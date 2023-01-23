@@ -1,14 +1,17 @@
 import Data_Structures.pila;
 import Data_Structures.cola;
 import Data_Structures.arbolBin;
+import Data_Structures.arbolAVL;
 public class Launcher{
     private pila<Integer> Stack;
     private cola<Integer> queue;
     private arbolBin<String> tree;
+    private arbolAVL<String> AVLtree;
     public Launcher(){
         //pruebaPila();
         //pruebaCola();
-        pruebaTree();
+        //pruebaBinaryTree();
+        pruebaAVLtree();
     }
     private void pruebaPila(){
         System.out.println("PILA:");  
@@ -38,7 +41,7 @@ public class Launcher{
         System.out.println((queue.isEmpty())?"VACIA":"NO VACIA");
     }
 
-    private void pruebaTree(){
+    private void pruebaBinaryTree(){
         System.out.println("ARBOL BINARIO: ");
         tree = new arbolBin<String>();
         tree.insertar(120, "INFO 120");
@@ -122,6 +125,21 @@ public class Launcher{
         System.out.println("Anchura maxima: " + tree.getAnchuraMaxima());
         System.out.println(tree.getInfo(200));
     }
+    
+    private void pruebaAVLtree(){
+      AVLtree = new arbolAVL<String>();
+      AVLtree.insertar(100,"100");
+      AVLtree.insertar(120,"120");
+      AVLtree.insertar(130,"130");
+      AVLtree.insertar(140,"140");
+      AVLtree.insertar(150,"150");
+      AVLtree.insertar(90,"90");
+      AVLtree.insertar(80,"80");
+
+      AVLtree.inOrden();
+      System.err.println(AVLtree.altura());
+    }
+    
     public static void main(String[] args) {
         new Launcher();
     }

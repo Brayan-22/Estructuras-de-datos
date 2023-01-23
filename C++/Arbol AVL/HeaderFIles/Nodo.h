@@ -1,17 +1,13 @@
 #ifndef NODO_H
 #define NODO_H
-
-struct nodoABase{
-    int dato;
-    nodoABase *izq;
-    nodoABase *der;
-};
-
-struct nodoAVL {
-    int dato;
-    int f_bal;
-    nodoAVL *izq;
-    nodoAVL *der;
+#include<iostream>
+template<typename T>
+struct nodoAvl{
+    int fb;
+    int clave;
+    T info;
+    nodoAvl<T> *izq=NULL;
+    nodoAvl<T> *der=NULL;
 };
 
 template<typename T>

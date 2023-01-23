@@ -36,7 +36,7 @@ public class nodos{
             this.der=null;
         }
     }
-    public static class nodoArbolAVL<T>{
+    public static class nodoArbolAVL<T> implements Cloneable{
         public int clave;
         private int fb;//-->factor de balance
         public T info;
@@ -61,7 +61,17 @@ public class nodos{
         }
         
         public int getFb(){
-            fb=(this.der.altura()-this.izq.altura());
+            if (this.der==null && this.izq!=null) {
+                fb=(0-this.izq.altura());
+            }
+            else if (this.der!=null && this.izq==null) {
+                fb=(this.der.altura()-0);
+            }
+            else if (this.der==null && this.izq==null) {
+                fb=0;
+            }else{
+                fb=(this.der.altura()-this.izq.altura());
+            }
             return this.fb;
         }
 
@@ -80,6 +90,16 @@ public class nodos{
 
         public int altura(){
             return altura(this);
+        }
+
+        public Object clone(){
+            Object obj=null;
+            try {
+                obj=super.clone();
+            } catch (CloneNotSupportedException  e) {
+                System.out.println("No se puede duplicar");
+            }
+            return obj;
         }
     }
 }

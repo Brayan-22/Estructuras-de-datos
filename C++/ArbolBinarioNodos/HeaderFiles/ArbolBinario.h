@@ -257,7 +257,6 @@ bool arbolBin::eliminar(int info){
 
 nodoABIN *arbolBin::buscarPadre(nodoABIN *hijo){
     if (hijo==this->raiz)return NULL;
-    
     nodoABIN *padre;
     padre=this->raiz;
     bool control=true;
@@ -440,15 +439,15 @@ int arbolBin::altura(){
 
 /* Obtener el ancho de un nivel dado */
 int arbolBin::getAnchura(nodoABIN *actual,int nivel){
-        if (actual == NULL){
-            return 0;
-        }
-        if (nivel == 1){
-            return 1;
-        }else if (nivel > 1){
-            return getAnchura(actual->izq, nivel - 1) + getAnchura(actual->der, nivel - 1);
-        }
+    if (actual == NULL){
         return 0;
+    }
+    if (nivel == 1){
+        return 1;
+    }else if (nivel > 1){
+        return getAnchura(actual->izq, nivel - 1) + getAnchura(actual->der, nivel - 1);
+    }
+    return 0;
 }
 
 int arbolBin::getAnchuraMaxima(){
